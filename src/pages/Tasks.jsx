@@ -7,7 +7,7 @@ const Tasks = () => {
        const [error, setError] = useState('')
        const addTask = () => {
               if (text.trim() === '') {
-                     setError('write something')
+                     setError('Please enter a task')
                      setText('')
                      return
 
@@ -19,16 +19,19 @@ const Tasks = () => {
               }
        }
        return (
-              <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10' >
-                     <h1 className='text-2xl font-bold text-amber-50'> My Tasks</h1>
+              <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10  text-amber-50' >
 
-                     <input type="text" placeholder='Type your task here' value={text} maxLength={50} className='bg-white' onChange={(e) => { setText(e.target.value) }} />
+                     <h1 className='text-2xl font-bold'> My Tasks</h1>
 
-                     <button onClick={addTask} className='bg-amber-500'>Add task</button>
+                     <input type="text" placeholder='Type your task here' value={text} maxLength={50} className='bg-white text-red-800' onChange={(e) => { setText(e.target.value) }} />
+
+                     <button onClick={addTask} className='bg-amber-500  text-black'>Add task</button>
+
                      {error && <p className='text-red-800'>{error}</p>}
+
                      <div>
-                            {task.map((elem, idx) => {
-                                   return <div key={idx} className='text-white flex items-center gap-2'>
+                            {task.map((elem, idx) => (
+                                   <div key={idx} className='flex items-center gap-2'>
                                           {/* {idx + 1} */}
                                           <input type="checkbox" name="list" className="ml-2 bg-amber-800" />{elem}
                                           <button onClick={() => {
@@ -39,8 +42,11 @@ const Tasks = () => {
                                                  <Trash2 />
                                           </button>
                                    </div>
-                            })}
+                            ))}
                      </div>
+                     {task.length !== 0 && <p className='text-amber-500'>{task.length} tasks added yet</p>}
+
+
               </div >
        )
 }
