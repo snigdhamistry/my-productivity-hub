@@ -44,7 +44,7 @@ const Tasks = () => {
                                    </div>
                             ))}
                      </div>
-                     {task.length !== 0 && <p className='text-amber-500'>{task.length} tasks added yet</p>}
+                     {task.length !== 0 && <p className='text-amber-500'>{task.length} tasks added</p>}
 
 
               </div >
