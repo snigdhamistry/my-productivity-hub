@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Trash2 } from 'lucide-react';
 
 const Tasks = () => {
        const [text, setText] = useState('')
-       const [task, setTask] = useState([])
+       const [task, setTask] = useState(() => {
+              const storedTasks = localStorage.getItem("tasks")
+              if(storedTasks){
+                     return JSON.parse(storedTasks)
+              }
+              else{return []}
+       })
        const [error, setError] = useState('')
+
+       useEffect(() => {
+              localStorage.setItem('tasks', JSON.stringify(task))
+       }, [task])
+
 
        const addTask = () => {
               if (text.trim() === '') {
@@ -40,10 +51,9 @@ const Tasks = () => {
                                           <input type="checkbox" name="list" className="ml-2 bg-amber-800" checked={elem.completed} onChange={(e) => {
                                                  const updatedTask = [...task]
                                                  updatedTask[idx].completed = e.target.checked
-                                                 console.log(updatedTask)
                                                  setTask(updatedTask)
-                                          }}/>
-                                          <p className={elem.completed ? "line-through text-amber-600":"" }>{elem.text} {elem.id}</p>
+                                          }} />
+                                          <p className={elem.completed ? "line-through text-amber-600" : ""}>{elem.text} {elem.id}</p>
                                           <button onClick={() => {
                                                  setTask(task.filter((elem, idx2) => {
                                                         return idx2 !== idx
