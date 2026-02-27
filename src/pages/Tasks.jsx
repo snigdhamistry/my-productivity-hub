@@ -5,6 +5,7 @@ const Tasks = () => {
        const [text, setText] = useState('')
        const [task, setTask] = useState([])
        const [error, setError] = useState('')
+
        const addTask = () => {
               if (text.trim() === '') {
                      setError('Please enter a task')
@@ -47,6 +48,7 @@ const Tasks = () => {
                                    </div>
                             ))}
                      </div>
+
                      {task.length !== 0 && <p className='text-amber-500'>{task.length} tasks added</p>}
 
               </div >
