@@ -5,17 +5,16 @@ const Tasks = () => {
        const [text, setText] = useState('')
        const [task, setTask] = useState(() => {
               const storedTasks = localStorage.getItem("tasks")
-              if(storedTasks){
+              if (storedTasks) {
                      return JSON.parse(storedTasks)
               }
-              else{return []}
+              else { return [] }
        })
        const [error, setError] = useState('')
 
        useEffect(() => {
               localStorage.setItem('tasks', JSON.stringify(task))
        }, [task])
-
 
        const addTask = () => {
               if (text.trim() === '') {
