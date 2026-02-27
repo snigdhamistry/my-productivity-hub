@@ -36,8 +36,14 @@ const Tasks = () => {
                      <div>
                             {task.map((elem, idx) => (
                                    <div key={idx} className='flex items-center gap-2'>
-                                          {idx + 1}
-                                          <input type="checkbox" name="list" className="ml-2 bg-amber-800" />{elem.text} {elem.id}
+                                          <p>{idx + 1}</p>
+                                          <input type="checkbox" name="list" className="ml-2 bg-amber-800" checked={elem.completed} onChange={(e) => {
+                                                 const updatedTask = [...task]
+                                                 updatedTask[idx].completed = e.target.checked
+                                                 console.log(updatedTask)
+                                                 setTask(updatedTask)
+                                          }}/>
+                                          <p className={elem.completed ? "line-through text-amber-600":"" }>{elem.text} {elem.id}</p>
                                           <button onClick={() => {
                                                  setTask(task.filter((elem, idx2) => {
                                                         return idx2 !== idx
