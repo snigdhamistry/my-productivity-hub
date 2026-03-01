@@ -16,7 +16,9 @@ const Tasks = () => {
               localStorage.setItem('tasks', JSON.stringify(task))
        }, [task])
 
-       const addTask = () => {
+       const addTask = (e) => {
+              e.preventDefault()
+
               if (text.trim() === '') {
                      setError('Please enter a task')
                      setText('')
@@ -36,12 +38,14 @@ const Tasks = () => {
        return (
               <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10  text-amber-50' >
 
-                     <h1 className='text-2xl font-bold'> My Tasks</h1>
+                     <form onSubmit={addTask} className='flex flex-col items-center gap-5'>
+                            <h1 className='text-2xl font-bold'> My Tasks</h1>
 
-                     <input type="text" placeholder='Type your task here' value={text} maxLength={50} className='bg-white text-red-800' onChange={(e) => { setText(e.target.value) }} />
+                            <input type="text" placeholder='Type your task here' value={text} maxLength={50} className='bg-white text-red-800' onChange={(e) => { setText(e.target.value) }} />
 
-                     <button onClick={addTask} className='bg-amber-500  text-black'>Add task</button>
-                     {error && <p className='text-red-800'>{error}</p>}
+                            <button onClick={addTask} className='bg-amber-500  text-black'>Add task</button>
+                            {error && <p className='text-red-800'>{error}</p>}
+                     </form>
 
                      <div>
                             {task.map((elem, idx) => (
