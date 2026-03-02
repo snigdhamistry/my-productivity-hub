@@ -5,18 +5,22 @@ const Weather = () => {
 
        const [city, setCity] = useState('')
        const [weather, setWeather] = useState(null)
+       const [loading, setloading] = useState(false)
        const [error, setError] = useState('')
 
        const handleInputChange = (e) => {
               setCity(e.target.value)
+              console.log(city)
        }
 
        const handleGetWeather = () => {
               if (city.trim() === '') {
                      setError('please enter a city name')
                      setCity('')
+                     setWeather(null)
                      return
               }
+              setloading(true)
               setError('')
               fetchWeatherData()
        }
@@ -28,9 +32,18 @@ const Weather = () => {
                      if (data.location.name.toLowerCase() !== city.toLowerCase()) {
                             setError('Please enter the full city name')
                             setWeather(null)
+                            setloading(false)
                             return
                      }
-                     setWeather(data)
+                     let localTime = new Date(data.location.localtime).toLocaleString('en-IN', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                     })
+                     setloading(false)
+                     setWeather({ ...data, localTime })
                      console.log(data)
               }
               catch (error) {
@@ -43,7 +56,7 @@ const Weather = () => {
        }
 
        return (
-              <div className='bg-black h-full w-full flex flex-col items-center justify-start gap-5 pt-10  text-amber-50 ' >
+              <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10  text-amber-50' >
 
                      <form onSubmit={handleFormSubmit} className='flex flex-col items-center gap-5'>
                             <h1 className='text-3xl font-bold'>Weather Page</h1>
@@ -54,6 +67,8 @@ const Weather = () => {
                                    <Search />
                             </button>
 
+                            {loading && <p className="text-green-500">Loading...</p>}
+
                             {error && <p className="text-red-500">{error}</p>}
                      </form>
 
@@ -62,6 +77,7 @@ const Weather = () => {
                                    weather && (
                                           <div className='flex flex-col items-center gap-5 bg-amber-200 p-5 rounded-md text-black' >
                                                  <h2 className='text-2xl font-semibold'>Name: {weather.location.name}</h2>
+                                                 <h2 className='text-lg'>Local Time: {weather.localTime}</h2>
                                                  <p className='text-lg'>Temperature: {weather.current.temp_c}°C</p>
                                                  <p className='text-lg'>Feels Like: {weather.current.feelslike_c}°C</p>
                                                  <p className='text-lg'>Condition: {weather.current.condition.text}</p>
@@ -70,6 +86,7 @@ const Weather = () => {
                                                  <p className='text-lg'>Wind Direction: {weather.current.wind_dir}</p>
                                                  <p className='text-lg'>Country: {weather.location.country}</p>
                                                  <p className='text-lg'>Region: {weather.location.region}</p>
+                                                 <p className='text-lg'>Current Condition: {weather.current.condition.text}</p>
                                           </div>
                                    )
                             }
