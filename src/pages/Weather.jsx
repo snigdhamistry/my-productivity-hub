@@ -3,13 +3,13 @@ import { Search } from 'lucide-react';
 
 const Weather = () => {
        const [city, setCity] = useState('')
+       const [weather, setWeather] = useState('')
        const [error, setError] = useState('')
-       const handleFormSubmit = (e) => {
-              e.preventDefault()
-       }
+
        const handleInputChange = (e) => {
               setCity(e.target.value)
        }
+
        const handleGetWeather = () => {
               if (city.trim() === '') {
                      setError('please enter a city name')
@@ -18,9 +18,15 @@ const Weather = () => {
               }
               else {
                      setError('')
-                     console.log(city)
-                     //here i will fetch the weather data for the city entered by the user and display it on the page
+                     fetchWeatherData()
               }
+       }
+       const fetchWeatherData = async () => {
+
+       }
+
+       const handleFormSubmit = (e) => {
+              e.preventDefault()
        }
        return (
               <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10  text-amber-50' >
@@ -33,9 +39,13 @@ const Weather = () => {
                             <button onClick={handleGetWeather} className="bg-amber-500 text-black p-2 rounded-md flex items-center gap-2 ">Get Weather
                                    <Search />
                             </button>
-                            
+
                             {error && <p className="text-red-500">{error}</p>}
                      </form>
+
+                     <div className='bg-green-400'> 
+                            
+                     </div>
 
               </div>
        )
