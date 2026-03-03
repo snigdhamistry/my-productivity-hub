@@ -5,12 +5,20 @@ const Weather = () => {
 
        const [city, setCity] = useState('')
        const [weather, setWeather] = useState(null)
+       const [suggestion, setSuggestion] = useState([])
        const [loading, setloading] = useState(false)
        const [error, setError] = useState('')
 
-       const handleInputChange = (e) => {
+       const handleInputChange = async (e) => {
               setCity(e.target.value)
-              console.log(city)
+              try {
+                     const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${e.target.value}`)//ami aga jehatu value ta kay terget korini tai value the ashay ni tai abar e.target.value diye target korechi 
+                     const data = await response.json()
+                     console.log(data)
+                     setSuggestion(data)
+              } catch (error) {
+                     setError('Failed to fetch city suggestions. Please try again later.')
+              }
        }
 
        const handleGetWeather = () => {
@@ -44,7 +52,6 @@ const Weather = () => {
                      })
                      setloading(false)
                      setWeather({ ...data, localTime })
-                     console.log(data)
               }
               catch (error) {
                      setError('Failed to fetch weather data. Please try again later.')
@@ -61,7 +68,30 @@ const Weather = () => {
                      <form onSubmit={handleFormSubmit} className='flex flex-col items-center gap-5'>
                             <h1 className='text-3xl font-bold'>Weather Page</h1>
 
-                            <input onChange={handleInputChange} type="text" placeholder="Enter city name" value={city} className="bg-gray-500 text-white p-2 rounded-md" />
+                            <div className="relative w-full">
+
+                                   <input
+                                          onChange={handleInputChange}
+                                          type="text"
+                                          placeholder="Enter city name"
+                                          value={city}
+                                          className="bg-gray-500 text-white p-2 rounded-md w-full"
+                                   />
+
+                                   {suggestion.length > 0 && (
+                                          <div className="absolute top-full left-0 w-full bg-gray-700 text-white rounded-md z-10">
+                                                 {suggestion.map((elem, index) => (
+                                                        <div
+                                                               key={index}
+                                                               className="p-2 hover:bg-gray-600 cursor-pointer"
+                                                        >
+                                                               {elem.name}, {elem.country}
+                                                        </div>
+                                                 ))}
+                                          </div>
+                                   )}
+
+                            </div>
 
                             <button onClick={handleGetWeather} className="bg-amber-500 text-black p-2 rounded-md flex items-center gap-2 ">Get Weather
                                    <Search />
