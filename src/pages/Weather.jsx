@@ -12,17 +12,17 @@ const Weather = () => {
        const handleInputChange = async (e) => {
               setCity(e.target.value)
               try {
-                     const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${e.target.value}`)//ami aga jehatu value ta kay terget korini tai value the ashay ni tai abar e.target.value diye target korechi 
+                     const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${e.target.value}`)
                      const data = await response.json()
-                     console.log(data)
                      setSuggestion(data)
               } catch (error) {
                      setError('Failed to fetch city suggestions. Please try again later.')
               }
        }
 
-       const handleGetWeather = () => {
-              if (city.trim() === '') {
+       const handleGetWeather = (selectedCity) => {
+              const cityTosearch = selectedCity || city
+              if (!cityTosearch || cityTosearch.trim() === '') {
                      setError('please enter a city name')
                      setCity('')
                      setWeather(null)
@@ -30,15 +30,15 @@ const Weather = () => {
               }
               setloading(true)
               setError('')
-              fetchWeatherData()
+              fetchWeatherData(cityTosearch)
        }
 
-       const fetchWeatherData = async () => {
+       const fetchWeatherData = async (cityTosearch) => {
               try {
-                     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${city}`)
+                     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=${cityTosearch}`)
                      const data = await response.json()
-                     if (data.location.name.toLowerCase() !== city.toLowerCase()) {
-                            setError('Please enter the full city name')
+                     if (data.location.name.toLowerCase() !== cityTosearch.toLowerCase()) {
+                            setError('Please enter the full city name or correct city name')
                             setWeather(null)
                             setloading(false)
                             return
@@ -84,7 +84,12 @@ const Weather = () => {
                                                         <div
                                                                key={index}
                                                                className="p-2 hover:bg-gray-600 cursor-pointer"
+                                                               onClick={() => {
+                                                                      setCity(elem.name)
+                                                                      handleGetWeather(elem.name)
+                                                               }}
                                                         >
+
                                                                {elem.name}, {elem.country}
                                                         </div>
                                                  ))}
@@ -93,7 +98,7 @@ const Weather = () => {
 
                             </div>
 
-                            <button onClick={handleGetWeather} className="bg-amber-500 text-black p-2 rounded-md flex items-center gap-2 ">Get Weather
+                            <button onClick={() => { handleGetWeather() }} className="bg-amber-500 text-black p-2 m-50 rounded-md flex items-center gap-14 ">Get Weather
                                    <Search />
                             </button>
 
