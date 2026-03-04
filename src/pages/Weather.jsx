@@ -63,7 +63,7 @@ const Weather = () => {
        }
 
        return (
-              <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10  text-amber-50' >
+              <div className='bg-black h-100% w-100% overflow-y-auto flex  items-center justify-start gap-5 pt-10  text-amber-50' >
 
                      <form onSubmit={handleFormSubmit} className='flex flex-col items-center gap-5'>
                             <h1 className='text-3xl font-bold'>Weather Page</h1>
@@ -107,7 +107,7 @@ const Weather = () => {
                             {error && <p className="text-red-500">{error}</p>}
                      </form>
 
-                     <div className='mt-10' >
+                     <div className='mt-10 mb-10' >
                             {
                                    weather && (
                                           <div className='flex flex-col items-center gap-5 bg-amber-200 p-5 rounded-md text-black' >
