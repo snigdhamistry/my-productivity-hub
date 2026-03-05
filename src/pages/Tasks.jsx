@@ -23,11 +23,10 @@ const Tasks = () => {
                      setError('Please enter a task')
                      setText('')
                      return
-              }
-              else {
+              } else {
                      setError('')
                      setTask([...task, {
-                            id: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                            id: new Date().toLocaleString(),
                             text: text,
                             completed: false
                      }])
@@ -36,42 +35,117 @@ const Tasks = () => {
        }
 
        return (
-              <div className='bg-black h-screen w-screen flex flex-col items-center justify-start gap-5 pt-10  text-amber-50' >
+              <div className="h-screen bg-gray-900 flex justify-center pt-28 pb-9 px-4 text-white overflow-hidden">
 
-                     <form onSubmit={addTask} className='flex flex-col items-center gap-5'>
-                            <h1 className='text-2xl font-bold'> My Tasks</h1>
+                     <div className="w-full max-w-1/2 bg-gray-800 p-5 rounded-xl shadow-xl flex flex-col">
 
-                            <input type="text" placeholder='Type your task here' value={text} maxLength={50} className='bg-white text-red-800' onChange={(e) => { setText(e.target.value) }} />
+                            <form onSubmit={addTask} className="flex flex-col gap-5">
 
-                            <button onClick={addTask} className='bg-amber-500  text-black'>Add task</button>
-                            {error && <p className='text-red-800'>{error}</p>}
-                     </form>
+                                   <h1 className="text-3xl font-bold text-center text-amber-400 tracking-wide">
+                                          My Tasks
+                                   </h1>
 
-                     <div>
-                            {task.map((elem, idx) => (
-                                   <div key={idx} className='flex items-center gap-2'>
-                                          <p>{idx + 1}</p>
-                                          <input type="checkbox" name="list" className="ml-2 bg-amber-800" checked={elem.completed} onChange={(e) => {
-                                                 const updatedTask = [...task]
-                                                 updatedTask[idx].completed = e.target.checked
-                                                 setTask(updatedTask)
-                                          }} />
-                                          <p className={elem.completed ? "line-through text-amber-600" : ""}>{elem.text} {elem.id}</p>
-                                          <button onClick={() => {
-                                                 setTask(task.filter((elem, idx2) => {
-                                                        return idx2 !== idx
-                                                 }))
-                                          }}>
-                                                 <Trash2 />
+                                   <div className="flex flex-col sm:flex-row gap-3">
+
+                                          <input
+                                                 type="text"
+                                                 placeholder="Type your task..."
+                                                 value={text}
+                                                 maxLength={50}
+                                                 onChange={(e) => setText(e.target.value)}
+                                                 className="flex-1 px-4 py-2 rounded-lg bg-gray-700 outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-400"
+                                          />
+
+                                          <button
+                                                 type="submit"
+                                                 className="bg-amber-500 hover:bg-amber-600 text-black px-4 py-2 rounded-lg font-semibold transition sm:w-auto w-full"
+                                          >
+                                                 Add
                                           </button>
+
                                    </div>
-                            ))}
+
+                                   {error && (
+                                          <p className="text-red-400 text-sm text-center">
+                                                 {error}
+                                          </p>
+                                   )}
+
+                            </form>
+
+                            {/* Task List */}
+                            <div className="mt-6 flex flex-col gap-3 flex-1 overflow-y-auto overflow-x-hidden pr-1 max-h-[50vh]">
+
+                                   {task.map((elem, idx) => (
+                                          <div
+                                                 key={elem.idx}
+                                                 className="flex items-start justify-between bg-gray-700 px-4 py-3 rounded-lg gap-3"
+                                          >
+
+                                                 <div className="flex items-start gap-3 w-full">
+
+                                                        <input
+                                                               type="checkbox"
+                                                               checked={elem.completed}
+                                                               className="mt-1"
+                                                               onChange={(e) => {
+                                                                      const updatedTask = [...task]
+                                                                      updatedTask[idx].completed = e.target.checked
+                                                                      setTask(updatedTask)
+                                                               }}
+                                                        />
+
+                                                        <p className={`w-full wrap-break-word text-sm ${elem.completed ? "line-through text-gray-400" : ""}`}>
+                                                               {elem.text}
+                                                        </p>
+
+                                                 </div>
+
+                                                 <button
+                                                        onClick={() => {
+                                                               setTask(task.filter((_, idx2) => idx2 !== idx))
+                                                        }}
+                                                        className="text-red-400 hover:text-red-600 shrink-0"
+                                                 >
+                                                        <Trash2 size={18} />
+                                                 </button>
+
+                                          </div>
+                                   ))}
+
+                            </div>
+
+                            {task.length !== 0 && (
+                                   <p className="text-center text-sm text-gray-400 mt-2">
+                                          {task.length} tasks added
+                                   </p>
+                            )}
+                            {
+                                   task.length === 0 && (
+                                          <p className="text-center text-sm text-gray-400 mt-2">
+                                                 No tasks added yet
+                                          </p>
+                                   )
+                            }
+                            {
+                                   task.length > 7 && (
+                                          <p className="text-center text-sm text-red-400 mt-2">
+                                                 You have a lot of tasks! Consider prioritizing them.
+                                          </p>
+                                   )
+                            }
+                            {
+                                   task.length == 0 || task.length - 1 && (
+                                          <p className="text-center text-sm text-teal-400 mt-2">
+                                                 {task.length==0} no tasks remaining! Great job!
+                                                 {task.length - 0} tasks remaining! Keep going!
+                                          </p>
+                                   )
+                            }
                      </div>
 
-                     {task.length !== 0 && <p className='text-amber-500'>{task.length} tasks added</p>}
-
-              </div >
+              </div>
        )
 }
 
-export default Tasks 
+export default Tasks
