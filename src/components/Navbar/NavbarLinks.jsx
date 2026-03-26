@@ -26,12 +26,7 @@ const NavbarLinks = () => {
                             Tasks
                      </Link>
 
-                     <Link
-                            to='/weather'
-                            className='relative text-white text-lg font-medium hover:text-yellow-400 transition duration-300 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:w-full'
-                     >
-                            Weather
-                     </Link>
+                     
 
               </div>
        )
