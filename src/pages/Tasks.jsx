@@ -148,16 +148,9 @@ const Tasks = () => {
                                           {task.length} tasks added
                                    </p>
                             )}
-                            {
-                                   task.length > 10 && (
-                                          <p className="text-center text-sm text-red-400 mt-2">
-                                                 You have a lot of tasks! Consider prioritizing them.
-                                          </p>
-                                   )
-                            }
                             {/* 
                             <p className="text-center text-sm text-gray-400 mt-2">
-                                   {task.filter((elem) => (elem.completed == true)).length} tasks completed from {task.length} tasks
+                            {task.filter((elem) => (elem.completed == true)).length} tasks completed from {task.length} tasks
                             </p> */}
                             {
                                    task.filter((elem) => elem.completed).length !== task.length &&
@@ -171,6 +164,13 @@ const Tasks = () => {
                                    <p className="text-center text-sm text-green-400 mt-2">
                                           All tasks are completed!
                                    </p>
+                            }
+                            {
+                                   task.length > 10 && (
+                                          <p className="text-center text-sm text-red-400 mt-2">
+                                                 You have a lot of tasks! Consider prioritizing them.
+                                          </p>
+                                   )
                             }
 
                      </div>
