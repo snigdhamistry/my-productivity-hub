@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 const Profile = () => {
        return (
               <>
-              <Link to="/theme">You can change theme from here Theme</Link>
+                     You can see your profile here
+                     <Link to='/' className='text-blue-500 hover:underline'>Go back to Home</Link>
               </>
        )
 }
