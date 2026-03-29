@@ -1,9 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
+import { Menu } from 'lucide-react';
+
 const Notes = () => {
        const [input, setInput] = useState('')
        const [text, setText] = useState('')
        const [allNotes, setAllNotes] = useState([])
+       const [toggle, setToggle] = useState(false)
        const [error, setError] = useState('')
        const addtask = (e) => {
               e.preventDefault()
@@ -19,6 +22,19 @@ const Notes = () => {
                      )
               }
        }
+
+       const toggleMenu = () => {
+              setToggle(prev => {
+                     if (!prev) {
+                            console.log("open")
+                     } else {
+                            console.log("close")
+                     }
+                     return !prev
+              })
+       }
+
+
        return (
               <div className="h-screen bg-gray-900 flex justify-center pt-28 pb-9 px-4 text-white overflow-hidden">
                      <form onSubmit={addtask} className="w-full max-w-2/3 bg-gray-800 p-5 rounded-xl shadow-xl flex flex-col gap-5">
@@ -40,12 +56,13 @@ const Notes = () => {
                      </form>
 
                      <div className="mt-6 flex flex-col gap-3 flex-1 overflow-y-auto overflow-x-hidden pr-1 max-h-[50vh]">
-                            {
+                            <button onClick={toggleMenu}><Menu /></button>
+
+                            {toggle &&
                                    allNotes.map((elem, index) => {
                                           return (
                                                  <div key={index} className="bg-gray-800 p-4 rounded-lg shadow">
                                                         <h2 className="text-xl font-semibold text-amber-400">{elem.title}</h2>
-                                                        <p className="text-gray-300">{elem.text}</p>
                                                  </div>
                                           )
                                    })
