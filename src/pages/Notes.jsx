@@ -11,7 +11,12 @@ const Notes = () => {
                      setError("please fill all the fields")
               } else {
                      setError('')
-
+                     setAllNotes(
+                            [...allNotes, {
+                                   title: input,
+                                   text: text
+                            }]
+                     )
               }
        }
        return (
@@ -33,9 +38,17 @@ const Notes = () => {
                                    {error}
                             </p>)}
                      </form>
+
                      <div className="mt-6 flex flex-col gap-3 flex-1 overflow-y-auto overflow-x-hidden pr-1 max-h-[50vh]">
                             {
-                                   
+                                   allNotes.map((elem, index) => {
+                                          return (
+                                                 <div key={index} className="bg-gray-800 p-4 rounded-lg shadow">
+                                                        <h2 className="text-xl font-semibold text-amber-400">{elem.title}</h2>
+                                                        <p className="text-gray-300">{elem.text}</p>
+                                                 </div>
+                                          )
+                                   })
                             }
                      </div>
               </div>
