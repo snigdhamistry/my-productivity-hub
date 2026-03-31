@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, Trash2 } from 'lucide-react';
 
 const Notes = () => {
        const [input, setInput] = useState('')
@@ -29,41 +29,46 @@ const Notes = () => {
        return (
               <div className="h-screen bg-[#0f172a] text-white overflow-hidden">
 
-                     {/* 🔹 SIDEBAR */}
-                     <div className={`fixed top-20 left-0 h-[calc(100%-4rem)] w-80 bg-[#111827] border-r border-gray-800 transform transition-transform duration-300 ease-in-out z-40 
-                     ${toggle ? "translate-x-0" : "-translate-x-full"}`}>
+                     <div className={`fixed top-24 bottom-4 left-0 w-80 bg-[#2e3748] border-t border-b border-r border-yellow-400 transform transition-transform duration-300 ease-in-out z-40 flex flex-col ${toggle ? "translate-x-0" : "-translate-x-full"}`}>
 
-                            <h1 className="text-2xl font-bold text-amber-400 mb-4 px-4">
+                            <h1 className="text-3xl font-bold text-amber-400 mb-4 px-4 hover:text-amber-600 transition">
                                    Your Notes
                             </h1>
-                            <div className="p-4 flex flex-col gap-3 h-full overflow-y-auto">
+                            <div className="p-4 flex flex-col gap-3 flex-1 overflow-y-auto pb-5">
                                    {allNotes.map((elem, index) => (
                                           <div
                                                  key={index}
-                                                 className="bg-[#1f2937] p-3 rounded-lg hover:bg-[#374151] transition cursor-pointer"
+                                                 className="relative bg-[#1f2937] p-3 rounded-lg hover:bg-[#374151] transition cursor-pointer"
                                           >
-                                                 <h3 className="text-sm font-semibold text-amber-400 truncate">
+                                                 <h3 className="text-xl font-semibold text-amber-400 truncate">
                                                         {elem.title}
                                                  </h3>
                                                  <p className="text-xs text-gray-400 truncate">
                                                         {elem.text}
                                                  </p>
+                                                 <button
+                                                        onClick={() => {
+                                                               const newNotes = allNotes.filter((elem, idx) => idx !== index)
+                                                               setAllNotes(newNotes)
+                                                        }}
+                                                        className="absolute top-2 right-2 p-1 rounded-md hover:bg-gray-800 transition"
+                                                 >
+                                                        <Trash2 />
+                                                 </button>
                                           </div>
                                    ))}
                             </div>
                      </div>
 
                      {/* 🔹 MAIN CONTENT */}
-                     <div className="pt-20 px-4 flex justify-center">
+                     <div className="pt-30 px-4 flex justify-center">
 
-                            {/* 🔹 EXTRA HAMBURGER (when navbar hidden) */}
                             <button
                                    onClick={toggleMenu}
-                                   className="fixed top-4 left-4 z-50 p-2 rounded-md hover:bg-gray-800 transition"
+                                   className="fixed top-7 left-4 z-50 p-2 rounded-md hover:bg-gray-800 transition"
                             >
                                    <Menu />
                             </button>
-
                             <form
                                    onSubmit={addtask}
                                    className="w-full max-w-2xl bg-[#1e293b] p-6 rounded-2xl shadow-lg border border-gray-800 flex flex-col gap-5"
