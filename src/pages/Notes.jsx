@@ -38,8 +38,7 @@ const Notes = () => {
                                    </h1>
                                    <button
                                           onClick={() => setAllNotes([])}
-                                          className="p-2 rounded-md"
-                                   >
+                                          className="p-2 rounded-md">
                                           <Trash2 size={22} className="text-red-400 hover:text-red-500" />
                                    </button>
                             </div>
@@ -50,8 +49,7 @@ const Notes = () => {
                                    {allNotes.map((elem, index) => (
                                           <div
                                                  key={index}
-                                                 className="relative bg-gray-900 p-3 rounded-lg hover:bg-gray-800 transition cursor-pointer"
-                                          >
+                                                 className="relative bg-gray-900 p-3 rounded-lg hover:bg-gray-800 transition cursor-pointer">
                                                  <h3 className="text-lg font-semibold text-amber-400 truncate">
                                                         {elem.title}
                                                  </h3>
@@ -63,40 +61,36 @@ const Notes = () => {
                                                                const newNotes = allNotes.filter((elem, idx) => idx !== index)
                                                                setAllNotes(newNotes)
                                                         }}
-                                                        className="absolute top-2 right-2 p-1 rounded-md hover:bg-gray-800 transition"
-                                                 >
+                                                        className="absolute top-2 right-2 p-1 rounded-md hover:bg-gray-800 transition">
                                                         <Trash2 size={18} />
                                                  </button>
                                           </div>
                                    ))}
-
                             </div>
+
                      </div>
 
                      {/* 🔹 MAIN CONTENT */}
                      <div className="pt-30 px-4 flex justify-center">
                             <button
                                    onClick={toggleMenu}
-                                   className="fixed top-6 left-4 z-50 p-2 rounded-md hover:bg-gray-800 transition"
-                            >
+                                   className="fixed top-6 left-4 z-50 p-2 rounded-md hover:bg-gray-800 transition">
                                    <Menu size={40} />
                             </button>
                             <form
                                    onSubmit={addtask}
-                                   className="w-full max-w-2xl bg-gray-800 rounded-2xl shadow-lg border border-gray-800 flex flex-col gap-1 px-6 py-4"
-                            >
+                                   className="w-full max-w-2xl bg-gray-800 rounded-2xl shadow-lg border border-gray-800 flex flex-col gap-1 px-6 py-4">
+
                                    <h1 className="text-3xl font-bold text-center text-amber-400 pb-4 tracking-wide">
                                           My Notes
                                    </h1>
-
                                    <input
                                           value={input}
                                           onChange={(e) => setInput(e.target.value)}
                                           type="text"
                                           placeholder="Type your title..."
                                           maxLength={80}
-                                          className="bg-gray-700 px-4 py-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-amber-400 outline-none placeholder-gray-500"
-                                   />
+                                          className="bg-gray-700 px-4 py-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-amber-400 outline-none placeholder-gray-500" />
                                    <p className="text-xs text-gray-400 text-right pr-1">
                                           {input.length}/80
                                    </p>
@@ -104,12 +98,10 @@ const Notes = () => {
                                           onChange={(e) => setText(e.target.value)}
                                           value={text}
                                           placeholder="Write your note..."
-                                          className="bg-gray-700 px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-amber-400 outline-none placeholder-gray-500 resize-none h-70"
-                                   />
+                                          className="bg-gray-700 px-4 py-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-amber-400 outline-none placeholder-gray-500 resize-none h-70" />
                                    <button
                                           type="submit"
-                                          className="bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 mt-4 rounded-lg transition"
-                                   >
+                                          className="bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 mt-4 rounded-lg transition">
                                           Save Note
                                    </button>
 
@@ -118,6 +110,7 @@ const Notes = () => {
                                                  {error}
                                           </p>
                                    )}
+
                             </form>
                      </div>
               </div>
