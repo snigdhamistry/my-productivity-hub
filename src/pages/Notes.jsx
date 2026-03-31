@@ -36,11 +36,14 @@ const Notes = () => {
                                    <h1 className="text-2xl font-bold text-amber-400 mb-4 px-2 pt-2 hover:text-amber-600 transition">
                                           Your Notes
                                    </h1>
-                                   <button
-                                          onClick={() => setAllNotes([])}
-                                          className="p-2 rounded-md">
-                                          <Trash2 size={22} className="text-red-400 hover:text-red-500" />
-                                   </button>
+                                   {
+                                          allNotes.length > 1 && (<button
+                                                 onClick={() => setAllNotes([])}
+                                                 className="p-2 rounded-md">
+                                                 <Trash2 size={22} className="text-red-400 hover:text-red-500" />
+                                          </button>)
+                                   }
+
                             </div>
                             <div className="p-4 flex flex-col gap-3 flex-1 overflow-y-auto pb-5">
                                    {allNotes.length === 0 && (<p className="text-gray-500 text-center py-4">
