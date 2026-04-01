@@ -116,9 +116,8 @@ const Notes = () => {
                                    className="w-full max-w-2xl bg-gray-800 rounded-2xl shadow-lg border border-gray-800 flex flex-col gap-1 px-6 py-4">
 
                                    <h1 className="text-3xl font-bold text-center text-amber-400 pb-4 tracking-wide">
-                                          My Notes
+                                          {editNote !== null ? "Edit Your Note" : "Create a New Note"}
                                    </h1>
-
                                    <input
                                           value={input}
                                           onChange={(e) => setInput(e.target.value)}
