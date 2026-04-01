@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const NavbarLogo = () => {
        return (
-              <Link to='/' className='group flex items-center'>
+              <Link to='/home' className='group flex items-center'>
 
                      <div className='
                      text-lg sm:text-xl md:text-2xl
