@@ -28,7 +28,7 @@ const App = () => {
     <div>
       <Navbar />
       <Routes>
-        <Route path='/home' element={<Home allNotes={allNotes} setTask={setTask} />} />
+        <Route path='/home' element={<Home task={task} allNotes={allNotes}/>} />
         <Route path='/notes' element={<Notes allNotes={allNotes} setAllNotes={setAllNotes} />} />
         <Route path='/tasks' element={<Tasks task={task} setTask={setTask} error={error} setError={setError} />} />
         <Route path='/profile' element={<Profile />} />
