@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Trash2 } from 'lucide-react';
 
-const Tasks = () => {
+const Tasks = ({ task, setTask, error, setError }) => {
        const [text, setText] = useState('')
-       const [task, setTask] = useState(() => {
-              const storedTasks = localStorage.getItem("tasks")
-              if (storedTasks) {
-                     return JSON.parse(storedTasks)
-              }
-              else { return [] }
-       })
-       const [error, setError] = useState('')
-
-       useEffect(() => {
-              localStorage.setItem('tasks', JSON.stringify(task))
-       }, [task])
 
        const addTask = (e) => {
               e.preventDefault()
