@@ -2,10 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import { Menu, Trash2, Pencil } from 'lucide-react';
 
-const Notes = () => {
+const Notes = ({ allNotes, setAllNotes }) => {
        const [input, setInput] = useState('')
        const [text, setText] = useState('')
-       const [allNotes, setAllNotes] = useState([])
        const [editNote, setEditNote] = useState(null)
        const [toggle, setToggle] = useState(false)
        const [error, setError] = useState('')
